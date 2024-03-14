@@ -7,15 +7,18 @@ public class Thief : Villager
 {
     public GameObject dagger;
     public Transform SpawnPoint;
-    public Transform SpawnPoint2;
-
     protected override void Attack()
     {
         gameObject.transform.position = (Vector2)Camera.main.ScreenToWorldPoint(Input.mousePosition);
         destination = gameObject.transform.position;
-        Instantiate(dagger, SpawnPoint.position, SpawnPoint.rotation);
-        Instantiate(dagger, SpawnPoint2.position, SpawnPoint2.rotation);
+        base.Attack();
+        Invoke("spawner", 0f);
+        Invoke("spawner", 0.1f);
+    }
 
+    void spawner()
+    {
+        Instantiate(dagger, SpawnPoint.position, SpawnPoint.rotation);
     }
 
     public override ChestType CanOpen()

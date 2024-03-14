@@ -13,4 +13,9 @@ public class Archer : Villager
         Instantiate(Arrow, spawnPoint.position, spawnPoint.rotation);
     }
 
+    public override ChestType CanOpen()
+    {
+        return ChestType.Archer;
+    }
+
 }

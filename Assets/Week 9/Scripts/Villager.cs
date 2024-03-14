@@ -13,7 +13,7 @@ public class Villager : MonoBehaviour
     public GameObject highlight;
 
     protected Vector2 destination;
-    Vector2 movement;
+    protected Vector2 movement;
     float speed = 3;
 
     void Start()
@@ -42,25 +42,7 @@ public class Villager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        movement = destination - (Vector2)transform.position;
-
-        //flip the x direction of the game object & children to face the direction we're walking
-        if(movement.x > 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
-        else if (movement.x < 0)
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-
-        //stop moving if we're close enough to the target
-        if (movement.magnitude < 0.1)
-        {
-            movement = Vector2.zero;
-        }
-
-        rb.MovePosition(rb.position + movement.normalized * speed * Time.deltaTime);
+        Movement();
     }
 
     void Update()
@@ -88,5 +70,28 @@ public class Villager : MonoBehaviour
     public virtual ChestType CanOpen()
     {
         return ChestType.Villager;
+    }
+
+    protected virtual void Movement()
+    {
+        movement = destination - (Vector2)transform.position;
+
+        //flip the x direction of the game object & children to face the direction we're walking
+        if (movement.x > 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (movement.x < 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+
+        //stop moving if we're close enough to the target
+        if (movement.magnitude < 0.1)
+        {
+            movement = Vector2.zero;
+        }
+
+        rb.MovePosition(rb.position + movement.normalized * speed * Time.deltaTime);
     }
 }

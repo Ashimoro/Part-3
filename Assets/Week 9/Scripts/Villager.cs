@@ -14,7 +14,7 @@ public class Villager : MonoBehaviour
 
     protected Vector2 destination;
     protected Vector2 movement;
-    float speed = 3;
+    public float speed = 3;
 
     void Start()
     {
@@ -42,10 +42,29 @@ public class Villager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Movement();
+        movement = destination - (Vector2)transform.position;
+
+        //flip the x direction of the game object & children to face the direction we're walking
+        if (movement.x > 0)
+        {
+            transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else if (movement.x < 0)
+        {
+            transform.localScale = new Vector3(1, 1, 1);
+        }
+
+        //stop moving if we're close enough to the target
+        if (movement.magnitude < 0.1)
+        {
+            movement = Vector2.zero;
+            speed = 3;
+        }
+
+        rb.MovePosition(rb.position + movement.normalized * speed * Time.deltaTime);
     }
 
-    void Update()
+    protected virtual void Update()
     {
         //left click: move to the click location
         if (Input.GetMouseButtonDown(0) && isSelected && !clickingOnSelf)
@@ -72,26 +91,4 @@ public class Villager : MonoBehaviour
         return ChestType.Villager;
     }
 
-    protected virtual void Movement()
-    {
-        movement = destination - (Vector2)transform.position;
-
-        //flip the x direction of the game object & children to face the direction we're walking
-        if (movement.x > 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
-        else if (movement.x < 0)
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-
-        //stop moving if we're close enough to the target
-        if (movement.magnitude < 0.1)
-        {
-            movement = Vector2.zero;
-        }
-
-        rb.MovePosition(rb.position + movement.normalized * speed * Time.deltaTime);
-    }
 }

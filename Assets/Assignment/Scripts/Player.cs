@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    public float speed = 200f;
+    public float speed = 500f;
     public Rigidbody2D rb;
-    protected float gravityScale = 50f;
+    protected static float gravityScale = 50f;
     private void Start()
     {
 
@@ -16,9 +16,10 @@ public class Player : MonoBehaviour
     public void Update()
     {
         Effect();
+        Debug.Log(speed);
     }
 
-    private void FixedUpdate()
+    public void FixedUpdate()
     {
         float moveHorizontal = Input.GetAxis("Horizontal");
         Vector2 movement = new Vector2(moveHorizontal, 0);

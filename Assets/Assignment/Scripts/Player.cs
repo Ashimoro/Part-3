@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    static float speed = 500f;
+    public float speed = 200f;
     public Rigidbody2D rb;
     protected float gravityScale = 50f;
     private void Start()
@@ -27,7 +27,7 @@ public class Player : MonoBehaviour
 
     protected virtual void Effect()
     {
-        rb.gravityScale = gravityScale;
+        
     }
 
 }

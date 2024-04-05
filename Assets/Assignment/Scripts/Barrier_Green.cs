@@ -16,7 +16,7 @@ public class Barrier_Green : Player
     protected override void Effect()
     {
         gravityScale = -50;
-        base.Effect();
+        rb.gravityScale = gravityScale;
     }
 
 

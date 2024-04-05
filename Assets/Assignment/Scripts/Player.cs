@@ -16,7 +16,6 @@ public class Player : MonoBehaviour
     public void Update()
     {
         Effect();
-        Debug.Log(speed);
     }
 
     public void FixedUpdate()
